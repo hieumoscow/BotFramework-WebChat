@@ -32,6 +32,7 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/CognitiveServices.js"></script>
   </head>
   <body>
     <div id="BotChatGoesHere"></div>
@@ -42,27 +43,38 @@
       const params = BotChat.queryParams(location.search);
 
       window.botchatDebug = params.debug && params.debug === 'true';
+      var speechOp = {
+        speechRecognizer: new CognitiveServices.SpeechRecognizer( { subscriptionKey: '61e0e043d9694cad8dd312ebad3b9568' } ),
+
+        speechSynthesizer: new CognitiveServices.SpeechSynthesizer(
+            {
+                subscriptionKey: '61e0e043d9694cad8dd312ebad3b9568',
+                gender: CognitiveServices.SynthesisGender.Female,
+                voiceName: 'Microsoft Server Speech Text to Speech Voice (en-US, JessaRUS)'
+            })
+      }
 
       ReactDOM.render(
         <BotChat.Chat
-          bot={{
-            id: params.botid || 'botid',
-            name: params.botname || 'botname'
-          }}
-          directLine={{
-            domain: params.domain,
-            secret: params.s,
-            token: params.t,
-            webSocket: params.webSocket && params.webSocket === 'true' // defaults to true
-          }}
-          locale={ params.locale }
-          resize="detect"
-          // sendTyping={ true }    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-          user={{
-            id: params.userid || 'userid',
-            name: params.username || 'username'
-          }}
-        />,
+        bot={{
+          id: params.botid || 'botid',
+          name: params.botname || 'botname'
+        }}
+        speechOptions={speechOp}
+        directLine={{
+          domain: params.domain,
+          secret: '53oQOJqdxFg.cwA.BkY.h1TdMhlTHcU7o2Gqgz5fXeqRPk_p0AoHQ2aVWd3SrB4',
+          token: params.t,
+          webSocket: params.webSocket && params.webSocket === 'true' // defaults to true
+        }}
+        locale={ params.locale }
+        resize="detect"
+        // sendTyping={ true }    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
+        user={{
+          id: params.userid || 'userid',
+          name: params.username || 'username'
+        }}
+      />,
         document.getElementById('BotChatGoesHere')
       );
     </script>
