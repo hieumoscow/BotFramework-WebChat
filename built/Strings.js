@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var localizedStrings = {
     'en-us': {
-        title: "Chat",
+        title: "Airbus Bot Chat",
         send: "Send",
         unknownFile: "[File of type '%1']",
         unknownCard: "[Unknown Card '%1']",
