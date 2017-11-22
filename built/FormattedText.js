@@ -20,7 +20,7 @@ var renderPlainText = function (text) {
         React.createElement("br", null)); });
     return React.createElement("span", { className: "format-plain" }, elements);
 };
-var markdownIt = new MarkdownIt({ html: false, linkify: true, typographer: true });
+var markdownIt = new MarkdownIt({ html: false, xhtmlOut: true, breaks: true, linkify: true, typographer: true });
 //configure MarkdownIt to open links in new tab
 //from https://github.com/markdown-it/markdown-it/blob/master/docs/architecture.md#renderer
 // Remember old renderer, if overriden, or proxy to default renderer
@@ -43,12 +43,14 @@ var renderMarkdown = function (text, onImageLoad) {
     var __html;
     if (text.trim()) {
         var src = text
-            .replace(/<br\s*\/?>/ig, '\r\n\r\n')
-            .replace(/\[(.*?)\]\((.*?)\)/ig, function (match, text, url) { return "[" + text + "](" + markdownIt.normalizeLink(url) + ")"; });
-        __html = markdownIt.render(src);
+            .replace(/<br\s*\/?>/ig, '\n')
+            .replace(/\[(.*?)\]\((.*?)( +".*?"){0,1}\)/ig, function (match, text, url, title) { return "[" + text + "](" + markdownIt.normalizeLink(url) + (title === undefined ? '' : title) + ")"; });
+        var arr = src.split(/\n *\n|\r\n *\r\n|\r *\r/);
+        var ma = arr.map(function (a) { return markdownIt.render(a); });
+        __html = ma.join('<br/>');
     }
     else {
-        // replace spaces with non-breaking space Unicode characters
+        // Replace spaces with non-breaking space Unicode characters
         __html = text.replace(/ */, '\u00A0');
     }
     return React.createElement("div", { className: "format-markdown", dangerouslySetInnerHTML: { __html: __html } });
