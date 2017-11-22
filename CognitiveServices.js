@@ -16,9 +16,9 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
+/******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/ 		}
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -2058,7 +2058,7 @@ exports.SpeechConnectionFactory = SpeechConnectionFactory;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(System) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var RecognitionMode;
 (function (RecognitionMode) {
@@ -2269,6 +2269,7 @@ var Device = (function () {
 }());
 exports.Device = Device;
 
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(59)))
 
 /***/ }),
 /* 18 */
@@ -5054,6 +5055,19 @@ exports.SpeechRecognizer = SpeechRecognition_1.SpeechRecognizer;
 var SpeechSynthesis_1 = __webpack_require__(20);
 exports.SpeechSynthesizer = SpeechSynthesis_1.SpeechSynthesizer;
 exports.SynthesisGender = SpeechSynthesis_1.SynthesisGender;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+// Provide a "System" global.
+module.exports = {
+	// Make sure import is only used as "System.import"
+	import: function() {
+		throw new Error("System.import cannot be used indirectly");
+	}
+};
 
 
 /***/ })
