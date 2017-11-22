@@ -71,12 +71,12 @@
     "actionAlignment": "left"
   },
   "adaptiveCard": {
-    "backgroundColor": "#ffffffff",
+    "backgroundColor": "#00000000",
     "padding": {
-      "left": 0,
-      "top": 0,
-      "right": 0,
-      "bottom": 0
+      "left": 8,
+      "top": 8,
+      "right": 8,
+      "bottom": 8
     }
   },
   "container": {
